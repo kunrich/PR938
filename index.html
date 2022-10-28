@@ -32,18 +32,18 @@ let set = {
 };
 let setup = '', next = '';
 if(url.hasOwnProperty('set')){
-  let data = JSON.parse(url.set);
+  let data = JSON.parse(atob(url.set));
   for(let x in data){
     set[x] = data[x];
   }
 }
 if(url.hasOwnProperty('next')){
-  next = url.next;
+  next = atob(url.next);
 }
 if(url.hasOwnProperty('mp4')){
-  setup = JSON.parse(url.mp4);
+  setup = JSON.parse(atob(url.mp4));
 }else if(url.hasOwnProperty('hls')){
-  setup = url.hls;
+  setup = atob(url.hls);
 }
 player.set(set).on('end',function(c){	
   if(player.checkscreen()){
