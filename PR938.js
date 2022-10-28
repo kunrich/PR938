@@ -1184,7 +1184,7 @@ function PR938(dom){
 	i.addMenu([
 		['quality','คุณภาพ',''],
 		['rate','ความเร็วในการเล่น',''],
-		['rich','ทีมพัฒนา','Isorada'],
+		['rich','ทีมพัฒนา','PR938'],
 	]);
 	
 	let rate=i.id.rateEvent;
