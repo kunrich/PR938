@@ -1,1 +1,58 @@
-<h1>Test Player</h1>
+
+
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<link rel="stylesheet" href="/PR938.css">
+<script src="/PR938.js"></script>
+<script src="/hls.js"></script>
+<title>PR938 Player</title>
+<style>
+#player{
+    width: 100%;
+    max-width: 600px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 4px 4px 6px rgb(0 0 0 / 50%);
+}
+</style>
+</head>
+<body>
+<center>
+<h1>PR938 Player</h1>
+<div id="player"></div>
+<script>
+let player = new PR938(document.getElementById('player'));
+let search = location.search.substring(1);
+let url = JSON.parse('{"' + decodeURI(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}');
+let set = {
+    autoplay:1
+};
+let setup = '', next = '';
+if(url.hasOwnProperty('set')){
+  let data = JSON.parse(url.set);
+  for(let x in data){
+    set[x] = data[x];
+  }
+}
+if(url.hasOwnProperty('next')){
+  next = url.next;
+}
+if(url.hasOwnProperty('mp4')){
+  setup = JSON.parse(url.mp4);
+}else if(url.hasOwnProperty('hls')){
+  setup = url.hls;
+}
+player.set(set).on('end',function(c){	
+  if(player.checkscreen()){
+    player.id.btFullscreen.click();
+    if(next!='')
+      location.href=next;
+  }
+})
+.setup(setup);
+</script>
+</body>
+</html>
